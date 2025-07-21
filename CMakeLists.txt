@@ -3,11 +3,16 @@ project(HelloWordSFML)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Trova SFML
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
-# Aggiungi il file sorgente
-add_executable(HelloWordSFML src/main.cpp)
+file(GLOB SOURCES "src/*.cpp")
 
-# Collega le librerie SFML
+add_executable(HelloWordSFML ${SOURCES})
+
+
+target_include_directories(HelloWordSFML PRIVATE 
+    "${PROJECT_SOURCE_DIR}/include"
+)
+
 target_link_libraries(HelloWordSFML sfml-graphics sfml-window sfml-system)
+

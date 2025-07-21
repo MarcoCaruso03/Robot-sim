@@ -1,0 +1,15 @@
+PROJECT ROB SIM
+Project phases: 
+0) Map creation: could be an empty map: just a grid and the robot or a map filled by obstacles, depends on the current phase of the project
+
+1) No obstacles => Given a starting point  A and an ending point B the robot must find the shortest path from A to B. 
+The output will be the shortest path and the graphic animation of the robot going from A to B 
+
+2) With obstacles and knowledge => Given a starting point A, and ending point B and given also the structure of the map: so the robot knows where are the obstacles, how much they are large etc, the robot must find the shortest path from A to B. 
+The output will be the shortest path and the graphic animation of the robot going from A to B, of course avoiding the obstacles, which are now presented in the graphic map
+
+3) With obstacles without knowledge, hand-written rules => Given a starting point A and ending point B, the robot without knowing the position of the obstacles must find the shortest path from A to B, avoiding the obstacles. The robot uses a series of sensors (virtual one) in order to capture is there are any obstacles. Than it uses some hand-written rules to avoid them and keep going on towards B. 
+The output will be the shortest path and the graphic animation of the robot going from A to B, of course avoiding the obstacles, which are now presented in the graphic map
+
+4) With obstacles without knowledge, ML decision =>  Given a starting point A and ending point B, the robot without knowing the position of the obstacles must find the shortest path from A to B, avoiding the obstacles. The robot uses a series of sensors (virtual one) in order to capture is there are any obstacles. Than it uses a ML model (maybe using reinforcement learning) to take a decision in order to avoid the obstacle and keep going on towards B. 
+The output will be the shortest path and the graphic animation of the robot going from A to B, of course avoiding the obstacles, which are now presented in the graphic map

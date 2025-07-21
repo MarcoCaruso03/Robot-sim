@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o"
+  "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o.d"
   "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o"
   "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o.d"
   "HelloWordSFML"
