@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
+  "command": "/usr/bin/g++   -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/main.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp",
+  "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp",
+  "output": "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o"
+}
+]

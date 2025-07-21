@@ -1,0 +1,3 @@
+/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles/HelloWordSFML.dir
+/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles/edit_cache.dir
+/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles/rebuild_cache.dir
