@@ -13,3 +13,8 @@ The output will be the shortest path and the graphic animation of the robot goin
 
 4) With obstacles without knowledge, ML decision =>  Given a starting point A and ending point B, the robot without knowing the position of the obstacles must find the shortest path from A to B, avoiding the obstacles. The robot uses a series of sensors (virtual one) in order to capture is there are any obstacles. Than it uses a ML model (maybe using reinforcement learning) to take a decision in order to avoid the obstacle and keep going on towards B. 
 The output will be the shortest path and the graphic animation of the robot going from A to B, of course avoiding the obstacles, which are now presented in the graphic map
+
+
+*************PHASE 0*************
+I want to create a graphic map (and also its structure (graph maybe) to use after from algorithm like A*) 
+A map is a grid where each grid has a size

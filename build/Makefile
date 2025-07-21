@@ -153,6 +153,54 @@ src/Map.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Map.cpp.s
 .PHONY : src/Map.cpp.s
 
+src/Robot.o: src/Robot.cpp.o
+.PHONY : src/Robot.o
+
+# target to build an object file
+src/Robot.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o
+.PHONY : src/Robot.cpp.o
+
+src/Robot.i: src/Robot.cpp.i
+.PHONY : src/Robot.i
+
+# target to preprocess a source file
+src/Robot.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.i
+.PHONY : src/Robot.cpp.i
+
+src/Robot.s: src/Robot.cpp.s
+.PHONY : src/Robot.s
+
+# target to generate assembly for a file
+src/Robot.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.s
+.PHONY : src/Robot.cpp.s
+
+src/Tile.o: src/Tile.cpp.o
+.PHONY : src/Tile.o
+
+# target to build an object file
+src/Tile.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o
+.PHONY : src/Tile.cpp.o
+
+src/Tile.i: src/Tile.cpp.i
+.PHONY : src/Tile.i
+
+# target to preprocess a source file
+src/Tile.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.i
+.PHONY : src/Tile.cpp.i
+
+src/Tile.s: src/Tile.cpp.s
+.PHONY : src/Tile.s
+
+# target to generate assembly for a file
+src/Tile.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.s
+.PHONY : src/Tile.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -189,6 +237,12 @@ help:
 	@echo "... src/Map.o"
 	@echo "... src/Map.i"
 	@echo "... src/Map.s"
+	@echo "... src/Robot.o"
+	@echo "... src/Robot.i"
+	@echo "... src/Robot.s"
+	@echo "... src/Tile.o"
+	@echo "... src/Tile.i"
+	@echo "... src/Tile.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

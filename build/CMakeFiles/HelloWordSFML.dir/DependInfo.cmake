@@ -9,6 +9,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/marco/Desktop/Projects/HelloWordSFML/src/Map.cpp" "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o.d"
+  "/home/marco/Desktop/Projects/HelloWordSFML/src/Robot.cpp" "CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o.d"
+  "/home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp" "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o.d"
   "/home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp" "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o.d"
   )
 
