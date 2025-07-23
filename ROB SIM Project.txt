@@ -66,3 +66,12 @@ Ottenuto il percorso devo capire il base a quello come far muove il robot
 	-> Funzione che dato una tile, mi dice rispetto alla posizione attuale del robot dove si trova quella tile (sx, dx, up, down) 
 	-> In base a quello che mi dice quella funzione eseguo il comando di movimento 
 	-> Itero per tutte le tile del path che mi ha dato Dijktra
+	
+	
+TO DO IN ORDER TO FINISH PHASE 1
+-Divide the execution in several phase: 
+	->Load the empty map
+	->With a mouse click add the obstacles 
+	->With "S" place the robot (give to it the map with the obstacles) and with a click position it where the user wants to
+	->With "G" and a click select the goal tile 
+	->With "E" the algorithm starts and the robot move

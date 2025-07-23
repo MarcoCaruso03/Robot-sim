@@ -22,5 +22,4 @@ class Tile {
         void setPosition(float x, float y){shape.setPosition(x,y);}
         void setFillColor(const sf::Color& color){shape.setFillColor(color);}
         sf::FloatRect getGlobalBounds() const { return shape.getGlobalBounds();}
-
 };

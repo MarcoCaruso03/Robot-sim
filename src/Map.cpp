@@ -14,38 +14,11 @@ Map::Map(int const windowsWidth, int const windowHeight){
             //if(c%2==0)
             //    t.setType(TileType::Obstacle);
             //Test dijsktra 1
-            if(r == 1 && c == 1){
-                t.setType(TileType::Obstacle);
-                std::cout<<"Osb\n";
-            }
-            /*if(r == 0 && c == 1){
-                t.setType(TileType::Obstacle);
-                std::cout<<"Osb\n";
-            }*/
-            if(r == 2 && c == 1){
-                t.setType(TileType::Obstacle);
-                std::cout<<"Osb\n";
-            }
-            if(r == 3 && c == 2){
-                t.setType(TileType::Obstacle);
-                std::cout<<"Osb\n";
-            }
-            if(r == 3 && c == 3){
-                t.setType(TileType::Obstacle);
-                std::cout<<"Osb\n";
-            }               
-            
-            
             tiles.push_back(t);
-            
-
         }
     }
 }
-//the first const means => receive a pointer to a vector which cannot be modified 
-//it is used to "protect" the internal data of the classe
-//the second const means the function cannot modify the members of the class
-const std::vector<Tile>& Map::getTiles() const {
+std::vector<Tile>& Map::getTiles()  {
     return tiles;
 }
 void Map::buildGraph(){

@@ -2,7 +2,7 @@
 #include <cmath>
 #include "Map.h"
 #include "Robot.h"
-
+#include "Utils.h"
 bool checkCircleCollision(const sf::CircleShape& circle1, const sf::CircleShape& circle2) {
     // Calcola i centri dei cerchi (posizione + raggio)
     sf::Vector2f center1 = circle1.getPosition() + sf::Vector2f(circle1.getRadius(), circle1.getRadius());
@@ -33,23 +33,38 @@ int main()
         // gestisci errore caricamento font
         return -1;
     }
+    bool generateMap = false;
+    int clickStage = 0; // 0 = start, 1 = goal, 2+ = ostacoli
+    int startTile = 0;
+    int goalTile = -1;
+    //int TileIDRobot = 0; 
 
+
+    
     Map map(windowsWidth, windowsHeigt);
 
-    Robot robot(&map, 0,0,25);
-    const auto& tiles = map.getTiles();
 
-    map.buildGraph();
-    const auto& graph = map.getGraph();
-    map.printGraph();
+    //Robot => Starting point is startTile 
+    int xR, yR, colR, rowR;
+    bool robotPlaced = false, canMove=false; 
+    Robot robot(&map, 0,0,25, &window);
+    //Robot robot(&map, 0,0,25);
+    auto& tiles = map.getTiles();
 
-    std::vector<int> path = map.dijkstra(0, 34);
-    for(auto p : path){
-        std::cout<<p<<"->"; 
-    }
-    std::cout<<"\n";
+    //algo
+    bool canRunAlgo = false; 
 
-    robot.setPath(path);
+    //map.buildGraph();
+    //const auto& graph = map.getGraph();
+    //map.printGraph();
+
+    //std::vector<int> path = map.dijkstra(0, 34);
+    //for(auto p : path){
+        //std::cout<<p<<"->"; 
+    //}
+    //std::cout<<"\n";
+
+    //robot.setPath(path);
     
     //ciclo di rendering
     while (window.isOpen())
@@ -60,11 +75,101 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+                int tileSize = map.getTileSize();
+                int col = mousePos.x / tileSize;
+                int row = mousePos.y / tileSize;
+                if (col >= 0 && col < map.getCols() && row >= 0 && row < map.getRows()) {
+                    int index = row*map.getCols()+col;
+                    //starting point 
+                    if(clickStage == 0){
+                        tiles[index].setFillColor(sf::Color::Magenta);
+                        std::cout << "Start set on tile: " << index << "\n";
+                        startTile = index;
+                        rowR = startTile / map.getCols();
+                        colR = startTile % map.getCols();
+                        //robotPlaced=true;
+                        robot.placeRobot(colR, rowR);
+                    }
+                    //goal point
+                    else if(clickStage == 1){
+                        tiles[index].setFillColor(sf::Color::Green);
+                        std::cout << "Goal set on tile: " << index << "\n";
+                        goalTile = index;
+                    }
+                    //obstacle
+                    else{
+                        if(tiles[index].getType() != TileType::Obstacle){
+                            tiles[index].setType(TileType::Obstacle);
+                            tiles[index].setFillColor(sf::Color::Black);
+                            std::cout << "Tile " << index << " set as obstacle\n";
+                        }
+                    }
+                    clickStage++;
+                }
+            }
+
+            //user delete obs: 
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
+                //find the tile position
+                int tileSize = map.getTileSize();
+                int col = mousePos.x / tileSize;
+                int row = mousePos.y / tileSize;
+                if(col >= 0 && col<map.getCols() && row >= 0 && row < map.getRows()){
+                    //mouse è nella mappa
+                    int index = row*map.getCols()+col; 
+                    if(tiles[index].getType() == TileType::Obstacle){
+                        tiles[index].setType(TileType::Empty);
+                        tiles[index].setFillColor(sf::Color::White);
+                        std::cout << "Tile " << index << " is not an obstacle anymore\n";
+                    }
+                }
+            }
+
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::E && clickStage>=1){
+                //canRunAlgo = true;
+                if(generateMap == false){
+                    map.buildGraph();
+                    generateMap = true; 
+                    map.printGraph();
+                }     
+                std::vector<int> path = map.dijkstra(startTile, goalTile);
+                for(auto p : path){
+                    std::cout<<p<<"->"; 
+                }
+                std::cout<<"\n";
+                std::cout<<"Tile INFO\n";
+                for(int i=0; i<tiles.size(); i++){
+                    std::cout << i << ": " << tileTypeToString(tiles[i].getType()) << "\n";
+                }
+                robot.setPath(path);
+                robot.setCanRunAlgo(true);
+            }
+
         }
+
         window.clear(colorBackGround);
         //render of the map         
         map.draw(window);
+        //robot 
+        robot.update(window);
 
+        /*
+        if(robotPlaced){
+            std::cout<<"Robot posizionato\n";
+            xR = colR * map.getTileSize()+map.getTileSize()/2;
+            yR = rowR * map.getTileSize()+map.getTileSize()/2;
+            //Robot robot(&map, xR, yR, 25);  // 25 è il raggio del cerchio
+            robot.setX(xR-25);
+            robot.setY(yR-25);
+            //canMove=true;
+
+            
+        }
+        */
+       
         //for debugging
         for (int i = 0; i < tiles.size(); ++i) {
             sf::Text text;
@@ -83,8 +188,21 @@ int main()
             text.setPosition(x, y);
             window.draw(text);  
         }
+        //WE CAN RUN ONLY IF WE HAVE PLACE THE ROBOT AND A GOAL
+        //DA AGGIUSTARE
+        /*
+        if(canRunAlgo){
+            std::vector<int> path = map.dijkstra(startTile, goalTile);
+            for(auto p : path){
+                std::cout<<p<<"->"; 
+            }
+            std::cout<<"\n";
+            robot.update(window);
+            canRunAlgo = false; 
+        }
+        */
+
         
-        robot.update(window);
         
         window.display();
     }

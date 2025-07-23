@@ -933,6 +933,7 @@ CMakeFiles/HelloWordSFML.dir/src/main.cpp.o: /home/marco/Desktop/Projects/HelloW
   /home/marco/Desktop/Projects/HelloWordSFML/include/Map.h \
   /home/marco/Desktop/Projects/HelloWordSFML/include/Robot.h \
   /home/marco/Desktop/Projects/HelloWordSFML/include/Tile.h \
+  /home/marco/Desktop/Projects/HelloWordSFML/include/Utils.h \
   /usr/include/SFML/Config.hpp \
   /usr/include/SFML/Graphics.hpp \
   /usr/include/SFML/Graphics/BlendMode.hpp \
@@ -1255,6 +1256,8 @@ CMakeFiles/HelloWordSFML.dir/src/main.cpp.o: /home/marco/Desktop/Projects/HelloW
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
+
+/home/marco/Desktop/Projects/HelloWordSFML/include/Utils.h:
 
 /home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp:
 

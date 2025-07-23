@@ -18,7 +18,7 @@ class Map{
     public: 
         //given the windows, the construct set the number of rows and cols and create the tiles (empty)
         Map(int const windowsWidth, int const windowHeight);
-        const std::vector<Tile>& getTiles() const; 
+        std::vector<Tile>& getTiles(); 
         void buildGraph();
         const std::vector<std::vector<std::pair<int,float>>>& getGraph() const;
         void printGraph() const; 
@@ -26,5 +26,7 @@ class Map{
         std::vector<int> dijkstra(int start, int goal);
         int getTileSize(){return tilesSize;}
         int getCols(){return cols;}
+        int getRows(){return rows;}
+
 
 };
