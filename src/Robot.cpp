@@ -1,14 +1,20 @@
 #include "Robot.h"
+#include <cmath>
 
-Robot::Robot(int initX, int initY, int initR){
+Robot::Robot(Map * m, int initX, int initY, int initR){
+    map = m;
     x=initX; 
     y=initY;
     r=initR;
     shape=sf::CircleShape(r);
     shape.setFillColor(sf::Color::Red);
     shape.setPosition(sf::Vector2f(x,y));
-
-
+    int tileSize = map->getTileSize();
+    int robot_col = x / tileSize; 
+    int robot_row = y / tileSize; 
+    currentTile = robot_row*map->getCols()+robot_col; 
+    std::cout<<"CurrentRobotTile: "<<currentTile<<"\n";
+    
 }
 void Robot::setX(int new_x){
     x=new_x;
@@ -16,10 +22,48 @@ void Robot::setX(int new_x){
 void Robot::setY(int new_y){
     y=new_y;
 }
-void Robot::update(sf::RenderWindow& window){
-    //moveYpos();
+void Robot::update(sf::RenderWindow& window) {
+    if (currentStep >= pathToFollow.size()) {
+        window.draw(shape);
+        return;  // Finito il percorso
+    }
+
+    int nextTile = pathToFollow[currentStep];
+
+    // Calcolo posizione target (centro della tile)
+    int tileSize = map->getTileSize();
+    int col = nextTile % map->getCols();
+    int row = nextTile / map->getCols();
+
+
+    float radius = shape.getRadius();
+    sf::Vector2f targetPosition = {
+        col * tileSize + tileSize / 2.0f - radius,
+        row * tileSize + tileSize / 2.0f - radius
+    };
+
+    sf::Vector2f currentPosition = shape.getPosition();
+    float dx = targetPosition.x - currentPosition.x;
+    float dy = targetPosition.y - currentPosition.y;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    if (distance < 1.0f) {
+        // Raggiunta la tile
+        currentTile = nextTile;
+        currentStep++;
+    } else {
+        // Muoviti verso la tile
+        Direction d = getNewDirection(nextTile);
+
+        if (d == Direction::Right) moveXpos();
+        else if (d == Direction::Left) moveXneg();
+        else if (d == Direction::Up) moveYneg();
+        else if (d == Direction::Down) moveYpos();
+    }
+
     window.draw(shape);
 }
+
 void Robot::moveXpos(){
     shape.move(speed, 0);
 }
@@ -32,4 +76,18 @@ void Robot::moveYpos(){
 }
 void Robot::moveYneg(){
     shape.move(0, -speed);
+}
+Direction Robot::getNewDirection(int tile){
+    int currentRow = currentTile / map->getCols();
+    int currentCol = currentTile % map->getCols();
+
+    int targetRow = tile / map->getCols();
+    int targetCol = tile % map->getCols();
+
+    if (targetRow < currentRow) return Direction::Up;
+    if (targetRow > currentRow) return Direction::Down;
+    if (targetCol < currentCol) return Direction::Left;
+    if (targetCol > currentCol) return Direction::Right;
+    return Direction::None; // già sulla tile
+
 }

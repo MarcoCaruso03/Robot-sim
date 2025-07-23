@@ -34,20 +34,23 @@ int main()
         return -1;
     }
 
-
-
-
     Map map(windowsWidth, windowsHeigt);
 
-    //int robotR = 25;
-    //sf::CircleShape robot(robotR);
-    //robot.setPosition(sf::Vector2f(0,0));
-    //robot.setFillColor(sf::Color::Red);
-    Robot robot(0,0,25);
+    Robot robot(&map, 0,0,25);
     const auto& tiles = map.getTiles();
+
     map.buildGraph();
     const auto& graph = map.getGraph();
     map.printGraph();
+
+    std::vector<int> path = map.dijkstra(0, 34);
+    for(auto p : path){
+        std::cout<<p<<"->"; 
+    }
+    std::cout<<"\n";
+
+    robot.setPath(path);
+    
     //ciclo di rendering
     while (window.isOpen())
     {
@@ -62,8 +65,8 @@ int main()
         //render of the map         
         map.draw(window);
 
-
-        /*for (int i = 0; i < tiles.size(); ++i) {
+        //for debugging
+        for (int i = 0; i < tiles.size(); ++i) {
             sf::Text text;
             text.setFont(font);
             text.setString(std::to_string(i));
@@ -80,7 +83,7 @@ int main()
             text.setPosition(x, y);
             window.draw(text);  
         }
-        */
+        
         robot.update(window);
         
         window.display();

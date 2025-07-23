@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
+  "command": "/usr/bin/g++  -I/home/marco/Desktop/Projects/HelloWordSFML/include -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Map.cpp",
+  "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/Map.cpp",
+  "output": "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o"
+},
+{
+  "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
+  "command": "/usr/bin/g++  -I/home/marco/Desktop/Projects/HelloWordSFML/include -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Robot.cpp",
+  "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/Robot.cpp",
+  "output": "CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o"
+},
+{
+  "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
+  "command": "/usr/bin/g++  -I/home/marco/Desktop/Projects/HelloWordSFML/include -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp",
+  "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp",
+  "output": "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o"
+},
+{
+  "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
+  "command": "/usr/bin/g++  -I/home/marco/Desktop/Projects/HelloWordSFML/include -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/main.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp",
+  "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp",
+  "output": "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o"
+}
+]

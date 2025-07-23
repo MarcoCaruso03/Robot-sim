@@ -237,4 +237,7 @@ CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o: \
  /usr/include/SFML/Graphics/Text.hpp \
  /usr/include/SFML/Graphics/VertexBuffer.hpp /usr/include/c++/13/iostream \
  /usr/include/c++/13/istream /usr/include/c++/13/bits/istream.tcc \
- /home/marco/Desktop/Projects/HelloWordSFML/include/Tile.h
+ /home/marco/Desktop/Projects/HelloWordSFML/include/Tile.h \
+ /usr/include/c++/13/limits /usr/include/c++/13/queue \
+ /usr/include/c++/13/deque /usr/include/c++/13/bits/stl_deque.h \
+ /usr/include/c++/13/bits/deque.tcc /usr/include/c++/13/bits/stl_queue.h

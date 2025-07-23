@@ -18,3 +18,51 @@ The output will be the shortest path and the graphic animation of the robot goin
 *************PHASE 0*************
 I want to create a graphic map (and also its structure (graph maybe) to use after from algorithm like A*) 
 A map is a grid where each grid has a size
+
+A map is made by Tiles, so in the Map.h I've a vector of Tile (tiles), std::vector<Tile> tiles; which in the construct is made by Tile (rect) in the correct position in order to get a grid)
+
+Than we also need a graph representation of the map so in the Map class we have         std::vector<std::vector<std::pair<int,float>>> which represent the weighted graph. It is built in this way: we know the total number of element (rows*cols), so we see the map as a matrix, so double for and we assign the element of graph the nodeID=r*cols +c; Than we check if the current element of the graph (tile) is an obstacle if yes we skip. Than we check what is the position of the current element (r>0, r<rows-1, c>0, c<cols-1), check if the neighbor is an obstacle if not, we add that the node and the edge, weighted 1.0f. 
+
+The Tile class instead is essentialy a RectangleShape with a type (TileType) and a Size). 
+
+
+*************PHASE 1************* => Implementation of Dijkstra 
+Per applicare Dijkstra => per ogni nodo devo tener traccia di: 
+	1. Distanza minima trovata finora dal nodo di partenza a quel nodo
+	2. Il nodo precedente da cui siamo arrivati per raggiungere quel nodo col percorso più breve. 
+	
+Quindi usiamo: 
+	1. Un vettore "distance" dove distance[i] sarà la distanza più breve da start a i. All'inizio non sappiamo nulla quindi saranno tutte distanze infinite. 
+	2. Un vettore "previous" dove previous[i] sarà il nodo che precede i nel percorso più breve trvoato finora. All'inizio nessuna ha un precedente quindi saranno tutti -1
+	
+Dato il vettore "distance" dobbiamo capire quale nodo visitare dopo. Si utilizza una coda di priorità (più efficiente di un vettore normale). La coda ci permette di inserire i nodi con la loro distanza e di estrarre sempre il nodo con la distanza minima in O(log n). Quindi inseriamo {0, nodo_partenza} nella coda. Finchè la coda non è vuota: prendiamo il nodo con distanza più bassa, visitamo i suoi vicini, se troviamo un percorso più corto, aggiorniamo la distanza e inseriamo il vicino nella coda. 
+
+    std::priority_queue<std::pair<float, int>,
+                    std::vector<std::pair<float, int>>,
+                    std::greater<std::pair<float, int>>>
+                    
+=>std::pair<float, int>, is the distance and the node
+=>  std::vector<std::pair<float, int>>, è il contentiore interno usato dalla coda. Di default è vector. 
+=> std::greater<std::pair<float, int>>>, di defualt è max-heap. Ma a noi serve il minimo, mettendo quel comparatore (greater) diventa un minheap
+
+Quindi ora l'algoritmo: 
+Finchè la coda non è vuota: 
+	Estrai il nodo con distanza minore 
+	Controlla tutti i suoi vicini 
+	Se trovi un percorso più breve verso un vicino, aggiorna la distanza e inserisci di nuovo nella coda.
+	
+	
+Devo ricostruire il percorso: Per esempio, se previous[7] = 3, vuol dire che per arrivare al nodo 7, nel percorso minimo, passi prima dal nodo 3.
+    std::vector<int> path; 
+    for(int at = goal; at!=-1; at = previous[at]){
+        path.push_back(at);
+    }
+    std::reverse(path.begin(), path.end());
+Quindi: partiamo dal goal. Finchè at non -1 (cioè non siamo arrivati all'inizio del percorso) Aggiungiamo at al percorso. Poi aggiorniamo at a previous[at] cioè al nodo precedente. Alla fine il percorso è al contrario (da goal a start), quindi invertiamo l’ordine con std::reverse
+
+
+
+Ottenuto il percorso devo capire il base a quello come far muove il robot 
+	-> Funzione che dato una tile, mi dice rispetto alla posizione attuale del robot dove si trova quella tile (sx, dx, up, down) 
+	-> In base a quello che mi dice quella funzione eseguo il comando di movimento 
+	-> Itero per tutte le tile del path che mi ha dato Dijktra
