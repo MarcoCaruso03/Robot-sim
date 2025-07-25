@@ -71,6 +71,7 @@ void Robot::update(sf::RenderWindow& window) {
             }
         }
         window.draw(shape);
+        
     }
         
 

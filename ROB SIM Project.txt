@@ -26,7 +26,7 @@ Than we also need a graph representation of the map so in the Map class we have 
 The Tile class instead is essentialy a RectangleShape with a type (TileType) and a Size). 
 
 
-*************PHASE 1************* => Implementation of Dijkstra 
+*************PHASE 1/2************* => Implementation of Dijkstra 
 Per applicare Dijkstra => per ogni nodo devo tener traccia di: 
 	1. Distanza minima trovata finora dal nodo di partenza a quel nodo
 	2. Il nodo precedente da cui siamo arrivati per raggiungere quel nodo col percorso più breve. 
@@ -68,10 +68,46 @@ Ottenuto il percorso devo capire il base a quello come far muove il robot
 	-> Itero per tutte le tile del path che mi ha dato Dijktra
 	
 	
-TO DO IN ORDER TO FINISH PHASE 1
--Divide the execution in several phase: 
-	->Load the empty map
-	->With a mouse click add the obstacles 
-	->With "S" place the robot (give to it the map with the obstacles) and with a click position it where the user wants to
-	->With "G" and a click select the goal tile 
-	->With "E" the algorithm starts and the robot move
+FINISHED PHASE 1/2: SUMMARY: 
+Main: 
+	->Create a map by Map constructor, which will populate the tiles vector: a vector of Tile (rectangles with a type), positioning them in the right position in order to cover all the screen. 
+	-> Init of the robot by its constructor: the robot has a reference to the map and to the window. The default position is (0,0). Than I compute the initTile of the robot by     int robot_col = x / tileSize; int robot_row = y / tileSize;  currentTile = robot_row*map->getCols()+robot_col; 
+	-> I get the tiles which form the map => auto& tiles = map.getTiles();
+	->Init control boolean/int variables: 
+		*generateMap to control if the algorithm had been run
+		*clickStage to control the current stage of the program: =0 start, =1 goal, 2+= obstacles 
+		*canRunAlgo to control if we can run the algorithm (only it had been places a starting point and an end point)
+		
+	->Rendering cycle 
+		->Get the mouse and keyboard event: 
+			* Left mousebuttonpressed && clickStage==0 => place the starting point 
+			* Left mousebuttonpressed && clickStage==1 => place the goal point 
+			* Left mousebuttonpressed && clickStage==2 => place an obstacle 
+			* Right mousebottonpressed => delete an obstacle 
+			* E keyPressed and clickstage >= 1 => we can run the true algorithm  
+		->Run the algo (iff E keyPressed and clickstage >= 1)
+			* Generate the graph by map.buildGraph();
+			* Appy Dijkstra and so that get the path to follow:  std::vector<int> path = map.dijkstra(startTile, goalTile);
+			* I give to the robot the path to follow => robot.setPath(path); (so robot Knows the map, which its obstacles and already know the full path that it has to follow in order to arrive to the goalTile)
+			* I tell the robot that he can start its  own process => robot.setCanRunAlgo(true);
+		-> drawing/update phase: 
+			* map.draw(window) => It draws each tile in the vector tile.draw(window) (which is window.draw(shape))
+			* robot.update(window) => 
+				*check if the robot had been placed (check the variable robotPlaced, it is true when it is called the function Robot::placeRobot(int c, int r) (called when we place the startTile). 
+				*check if the algorithm can run (check the variable canRunAlgo, setted true when the user press E and it had placed at least the startTile and the goalTile 
+				* Than the robot has to move according the path given by Dijkstra, now stored in the variablepathToFollow. The current step made is stored in the variable "currentStep". 
+				If I haven't arrived to the end of the vector: I take the currentTile (and storing it in the nextTile variable); compute the corrisponding col and row and compute the target position. Than I take the current position, and compute the dx, and dy which are the difference in the x and y axes. Than compute the distance between the current position and the target position, in order to control if the robot had reached the tile. (if distance < 1.0f). If yes, I go to the next step. If not, so if I haven't reached the tile yet, I compute the direction toward the robot has to move and so give the comand to move (moveXpos etc...). 
+				Draw the figure.
+			* window.display()
+			
+
+
+****Introduction phase 3****
+The different with the phase 2 is that now the robot doesn't know how it's the map and where the obstacles are, so we cannot compute before of everything the path that the robot has to follow. 
+So we need Sensor in order to discover the place, and the robot has to build a map in run time while it's discovered new obstacles. 
+The sensor can be a function that given a direction check if the nextTile is an obstacle. 
+We also need to decide/understand how the robot should move????
+	-> (Idea to be checked): 
+		*The robot has a copy of the map, but now for him it's empty, NO obstacles. So the robot compute the dijkstra path on ITS map, so at the beginning there are no obstacles between him and the goal time. So dijkstra compute the path to follow. 
+	-> The robot starts it's process. But before to move towards the tile given by Dijkstra check with its sensor if in that direction there are an obstacle. If yes, it updates ITS map, adding the information that the next tile is an obstacle. So it doesn't move. Recompute Dijkstra on its map, which now has the information of the obstacle, and Dijkstra will give to the robot the new path. The dijkstra function is called as startTile=currentTile and goalTile=goalTile
+	-> Return to the previous phase. 
