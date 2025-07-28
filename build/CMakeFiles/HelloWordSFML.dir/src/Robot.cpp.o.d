@@ -240,7 +240,10 @@ CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o: \
  /usr/include/c++/13/iostream /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
  /home/marco/Desktop/Projects/HelloWordSFML/include/Tile.h \
- /usr/include/c++/13/limits /usr/include/c++/13/cmath /usr/include/math.h \
+ /usr/include/c++/13/limits \
+ /home/marco/Desktop/Projects/HelloWordSFML/include/Sensor.h \
+ /home/marco/Desktop/Projects/HelloWordSFML/include/Direction.h \
+ /usr/include/c++/13/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \

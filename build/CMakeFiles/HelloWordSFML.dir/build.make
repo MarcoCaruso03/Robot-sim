@@ -97,10 +97,24 @@ CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/marco/Desktop/Projects/HelloWordSFML/src/Robot.cpp -o CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.s
 
+CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o: CMakeFiles/HelloWordSFML.dir/flags.make
+CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o: /home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp
+CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o: CMakeFiles/HelloWordSFML.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o -MF CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o.d -o CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp
+
+CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp > CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.i
+
+CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp -o CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.s
+
 CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o: CMakeFiles/HelloWordSFML.dir/flags.make
 CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o: /home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp
 CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o: CMakeFiles/HelloWordSFML.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o -MF CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o.d -o CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp
 
 CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.s: cmake_force
 CMakeFiles/HelloWordSFML.dir/src/main.cpp.o: CMakeFiles/HelloWordSFML.dir/flags.make
 CMakeFiles/HelloWordSFML.dir/src/main.cpp.o: /home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp
 CMakeFiles/HelloWordSFML.dir/src/main.cpp.o: CMakeFiles/HelloWordSFML.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/HelloWordSFML.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/HelloWordSFML.dir/src/main.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HelloWordSFML.dir/src/main.cpp.o -MF CMakeFiles/HelloWordSFML.dir/src/main.cpp.o.d -o CMakeFiles/HelloWordSFML.dir/src/main.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp
 
 CMakeFiles/HelloWordSFML.dir/src/main.cpp.i: cmake_force
@@ -129,6 +143,7 @@ CMakeFiles/HelloWordSFML.dir/src/main.cpp.s: cmake_force
 HelloWordSFML_OBJECTS = \
 "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o" \
 "CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o" \
+"CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o" \
 "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o" \
 "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o"
 
@@ -137,6 +152,7 @@ HelloWordSFML_EXTERNAL_OBJECTS =
 
 HelloWordSFML: CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o
 HelloWordSFML: CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o
+HelloWordSFML: CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o
 HelloWordSFML: CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o
 HelloWordSFML: CMakeFiles/HelloWordSFML.dir/src/main.cpp.o
 HelloWordSFML: CMakeFiles/HelloWordSFML.dir/build.make
@@ -144,7 +160,7 @@ HelloWordSFML: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
 HelloWordSFML: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
 HelloWordSFML: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
 HelloWordSFML: CMakeFiles/HelloWordSFML.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable HelloWordSFML"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable HelloWordSFML"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HelloWordSFML.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

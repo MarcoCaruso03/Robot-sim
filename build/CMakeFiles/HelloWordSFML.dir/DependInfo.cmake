@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/marco/Desktop/Projects/HelloWordSFML/src/Map.cpp" "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Map.cpp.o.d"
   "/home/marco/Desktop/Projects/HelloWordSFML/src/Robot.cpp" "CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.o.d"
+  "/home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp" "CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o.d"
   "/home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp" "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o.d"
   "/home/marco/Desktop/Projects/HelloWordSFML/src/main.cpp" "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o" "gcc" "CMakeFiles/HelloWordSFML.dir/src/main.cpp.o.d"
   )

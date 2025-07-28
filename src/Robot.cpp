@@ -1,7 +1,7 @@
 #include "Robot.h"
 #include <cmath>
 
-Robot::Robot(Map * m, int initX, int initY, int initR, sf::RenderWindow * w){
+/*Robot::Robot(Map * m, int initX, int initY, int initR, sf::RenderWindow * w){
     map = m;
     x=initX; 
     y=initY;
@@ -15,7 +15,31 @@ Robot::Robot(Map * m, int initX, int initY, int initR, sf::RenderWindow * w){
     currentTile = robot_row*map->getCols()+robot_col; 
     std::cout<<"CurrentRobotTile: "<<currentTile<<"\n";
     win = w; 
+    //sensorDown = Sensor(Direction::Down, this, map);
+    //sensorUp = Sensor(Direction::Up, this, map);
+    //sensorLeft = Sensor(Direction::Left, this, map);
+    //sensorRight = Sensor(Direction::Right, this, map);
     
+}*/
+Robot::Robot(Map* m, int initX, int initY, int initR, sf::RenderWindow* w)
+    : map(m),
+      sensorUp(Direction::Up, this, m),
+      sensorDown(Direction::Down, this, m),
+      sensorLeft(Direction::Left, this, m),
+      sensorRight(Direction::Right, this, m)
+{
+    x=initX; 
+    y=initY;
+    r=initR;
+    shape=sf::CircleShape(r);
+    shape.setFillColor(sf::Color::Red);
+    shape.setPosition(sf::Vector2f(x,y));
+    int tileSize = map->getTileSize();
+    int robot_col = x / tileSize; 
+    int robot_row = y / tileSize; 
+    currentTile = robot_row*map->getCols()+robot_col; 
+    std::cout<<"CurrentRobotTile: "<<currentTile<<"\n";
+    win = w; 
 }
 void Robot::setX(int new_x){
     //x=new_x;
@@ -30,6 +54,8 @@ void Robot::setY(int new_y){
 void Robot::update(sf::RenderWindow& window) {
     if(robotPlaced){
         if(canRunAlgo){
+
+            sensorLeft.active();
             if (currentStep >= pathToFollow.size()) {
                 //std::cout<<"Finito il percorso\n";
                 window.draw(shape);
@@ -61,6 +87,7 @@ void Robot::update(sf::RenderWindow& window) {
                 currentTile = nextTile;
                 currentStep++;
             } else {
+                //std::cout<<"TIle current:"<<currentTile<<std::endl; 
                 // Muoviti verso la tile
                 Direction d = getNewDirection(nextTile);
 

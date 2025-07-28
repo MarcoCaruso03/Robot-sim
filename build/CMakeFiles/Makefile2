@@ -81,12 +81,12 @@ clean: CMakeFiles/HelloWordSFML.dir/clean
 CMakeFiles/HelloWordSFML.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target HelloWordSFML"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target HelloWordSFML"
 .PHONY : CMakeFiles/HelloWordSFML.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/HelloWordSFML.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/HelloWordSFML.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/marco/Desktop/Projects/HelloWordSFML/build/CMakeFiles 0
 .PHONY : CMakeFiles/HelloWordSFML.dir/rule

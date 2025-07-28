@@ -13,6 +13,12 @@
 },
 {
   "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
+  "command": "/usr/bin/g++  -I/home/marco/Desktop/Projects/HelloWordSFML/include -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp",
+  "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/Sensor.cpp",
+  "output": "CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o"
+},
+{
+  "directory": "/home/marco/Desktop/Projects/HelloWordSFML/build",
   "command": "/usr/bin/g++  -I/home/marco/Desktop/Projects/HelloWordSFML/include -g -std=gnu++17 -o CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o -c /home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp",
   "file": "/home/marco/Desktop/Projects/HelloWordSFML/src/Tile.cpp",
   "output": "CMakeFiles/HelloWordSFML.dir/src/Tile.cpp.o"

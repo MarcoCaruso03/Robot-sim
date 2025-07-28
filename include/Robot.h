@@ -1,13 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Map.h"
-enum class Direction {
+#include "Sensor.h"
+#include "Direction.h"
+/*enum class Direction {
     Up,
     Down, 
     Right, 
     Left,
     None,
-};
+};*/
 class Robot{
     private: 
         int r=25;
@@ -23,6 +25,7 @@ class Robot{
         bool robotPlaced = false; 
         sf::RenderWindow * win; 
         bool canRunAlgo = false;
+        Sensor sensorUp, sensorDown, sensorLeft, sensorRight; 
     public: 
         Robot(Map * m, int x_init, int y_init, int initR, sf::RenderWindow * w);
         void setX(int new_x);
@@ -38,4 +41,5 @@ class Robot{
         //void setPath(std::vector<int> p){pathToFollow = p;}
         void placeRobot(int c, int r);
         void setPath(const std::vector<int>& newPath){pathToFollow = newPath;}
+        int  getCurrentTile(){return currentTile;}
 };

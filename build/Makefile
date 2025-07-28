@@ -177,6 +177,30 @@ src/Robot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Robot.cpp.s
 .PHONY : src/Robot.cpp.s
 
+src/Sensor.o: src/Sensor.cpp.o
+.PHONY : src/Sensor.o
+
+# target to build an object file
+src/Sensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.o
+.PHONY : src/Sensor.cpp.o
+
+src/Sensor.i: src/Sensor.cpp.i
+.PHONY : src/Sensor.i
+
+# target to preprocess a source file
+src/Sensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.i
+.PHONY : src/Sensor.cpp.i
+
+src/Sensor.s: src/Sensor.cpp.s
+.PHONY : src/Sensor.s
+
+# target to generate assembly for a file
+src/Sensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWordSFML.dir/build.make CMakeFiles/HelloWordSFML.dir/src/Sensor.cpp.s
+.PHONY : src/Sensor.cpp.s
+
 src/Tile.o: src/Tile.cpp.o
 .PHONY : src/Tile.o
 
@@ -240,6 +264,9 @@ help:
 	@echo "... src/Robot.o"
 	@echo "... src/Robot.i"
 	@echo "... src/Robot.s"
+	@echo "... src/Sensor.o"
+	@echo "... src/Sensor.i"
+	@echo "... src/Sensor.s"
 	@echo "... src/Tile.o"
 	@echo "... src/Tile.i"
 	@echo "... src/Tile.s"
