@@ -111,3 +111,8 @@ We also need to decide/understand how the robot should move????
 		*The robot has a copy of the map, but now for him it's empty, NO obstacles. So the robot compute the dijkstra path on ITS map, so at the beginning there are no obstacles between him and the goal time. So dijkstra compute the path to follow. 
 	-> The robot starts it's process. But before to move towards the tile given by Dijkstra check with its sensor if in that direction there are an obstacle. If yes, it updates ITS map, adding the information that the next tile is an obstacle. So it doesn't move. Recompute Dijkstra on its map, which now has the information of the obstacle, and Dijkstra will give to the robot the new path. The dijkstra function is called as startTile=currentTile and goalTile=goalTile
 	-> Return to the previous phase. 
+	
+**Phase 3**
+-Introduction of Sensor: a sensor is an object which given a Direction check if in that direction there is an obstacle. If yes set a internal variable to true. 
+
+-Robot now has an "empty" map. For each step of the map each for obstacles. 

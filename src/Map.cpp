@@ -18,6 +18,30 @@ Map::Map(int const windowsWidth, int const windowHeight){
         }
     }
 }
+Map Map::cloneStructureWithoutObstacles() const {
+    Map clone;
+    clone.tilesSize = this->tilesSize;
+    clone.rows = this->rows;
+    clone.cols = this->cols;
+
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            Tile original = tiles[r * cols + c];
+
+            Tile t(tilesSize - 1, tilesSize - 1, tilesSize);
+            t.setPosition(c * tilesSize, r * tilesSize);
+            t.setType(TileType::Empty); // rimuove eventuali ostacoli
+
+            clone.tiles.push_back(t);
+        }
+    }
+
+    // opzionale: anche clone.graph se vuoi
+    return clone;
+}
+
+
+
 std::vector<Tile>& Map::getTiles()  {
     return tiles;
 }
@@ -119,4 +143,29 @@ std::vector<int> Map::dijkstra(int start, int goal){
 
     return path; 
 
+}
+
+
+void Map::setBorderColorTile(sf::Color c, int id){
+    tiles[id].setBorderColor(c);
+}
+
+void Map::defaultColorTile(std::vector<int> p){
+    //clean previous color to default 
+    for(int i=0; i<p.size(); i++){
+        if(i==0 || i==p.size()-1 || tiles[p[i]].getType()==TileType::Obstacle)
+            continue;
+        tiles[p[i]].setFillColor(sf::Color::White);
+    }
+}
+void Map::setColorPath(std::vector<int> p){
+
+    //new path = new color
+    for(int i=0; i<p.size(); i++){
+        //tiles[p[i]].setBorderColor(sf::Color::Red);
+        if(i==0 || i==p.size()-1 || tiles[p[i]].getType()==TileType::Obstacle)
+            continue;
+        tiles[p[i]].setFillColor(sf::Color(255, 0, 0, 150));  // rosso semi-trasparente
+
+    }
 }

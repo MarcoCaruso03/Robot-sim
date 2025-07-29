@@ -1,46 +1,35 @@
 #include "Robot.h"
 #include <cmath>
 
-/*Robot::Robot(Map * m, int initX, int initY, int initR, sf::RenderWindow * w){
-    map = m;
-    x=initX; 
-    y=initY;
-    r=initR;
-    shape=sf::CircleShape(r);
-    shape.setFillColor(sf::Color::Red);
-    shape.setPosition(sf::Vector2f(x,y));
-    int tileSize = map->getTileSize();
-    int robot_col = x / tileSize; 
-    int robot_row = y / tileSize; 
-    currentTile = robot_row*map->getCols()+robot_col; 
-    std::cout<<"CurrentRobotTile: "<<currentTile<<"\n";
-    win = w; 
-    //sensorDown = Sensor(Direction::Down, this, map);
-    //sensorUp = Sensor(Direction::Up, this, map);
-    //sensorLeft = Sensor(Direction::Left, this, map);
-    //sensorRight = Sensor(Direction::Right, this, map);
-    
-}*/
 Robot::Robot(Map* m, int initX, int initY, int initR, sf::RenderWindow* w)
-    : map(m),
-      sensorUp(Direction::Up, this, m),
-      sensorDown(Direction::Down, this, m),
-      sensorLeft(Direction::Left, this, m),
-      sensorRight(Direction::Right, this, m)
+    : map(m)
 {
-    x=initX; 
-    y=initY;
-    r=initR;
-    shape=sf::CircleShape(r);
+    sensors.emplace_back(Direction::Up, this, m);
+    sensors.emplace_back(Direction::Down, this, m);
+    sensors.emplace_back(Direction::Left, this, m);
+    sensors.emplace_back(Direction::Right, this, m);
+    detected.emplace_back(false);
+    detected.emplace_back(false);
+    detected.emplace_back(false);
+    detected.emplace_back(false);
+
+    x = initX; 
+    y = initY;
+    r = initR;
+    robotMap = map->cloneStructureWithoutObstacles();
+
+    shape = sf::CircleShape(r);
     shape.setFillColor(sf::Color::Red);
-    shape.setPosition(sf::Vector2f(x,y));
+    shape.setPosition(sf::Vector2f(x, y));
+
     int tileSize = map->getTileSize();
     int robot_col = x / tileSize; 
     int robot_row = y / tileSize; 
-    currentTile = robot_row*map->getCols()+robot_col; 
-    std::cout<<"CurrentRobotTile: "<<currentTile<<"\n";
-    win = w; 
+    currentTile = robot_row * map->getCols() + robot_col; 
+    std::cout << "CurrentRobotTile: " << currentTile << "\n";
+    win = w;
 }
+
 void Robot::setX(int new_x){
     //x=new_x;
     sf::Vector2f pos = shape.getPosition();
@@ -51,11 +40,11 @@ void Robot::setY(int new_y){
     shape.setPosition(pos.x, new_y);
     //y=new_y;
 }
+/*
 void Robot::update(sf::RenderWindow& window) {
     if(robotPlaced){
         if(canRunAlgo){
-
-            sensorLeft.active();
+            //sensorLeft.active();
             if (currentStep >= pathToFollow.size()) {
                 //std::cout<<"Finito il percorso\n";
                 window.draw(shape);
@@ -100,11 +89,128 @@ void Robot::update(sf::RenderWindow& window) {
         window.draw(shape);
         
     }
-        
-
-    
 }
+    */
+void Robot::update(sf::RenderWindow& window){
+    if(robotPlaced){
+        if(canRunAlgo){
+            //clean all the measures now
+            detected.clear();
+            detected.emplace_back(false);
+            detected.emplace_back(false);
+            detected.emplace_back(false);
+            detected.emplace_back(false);
+            //std::cout<<"canRunAlgo TRUE\n";
+            //first time and when we find an obstacle
+            if(needToComputePath){
+                std::cout<<"Devo ricalcolare il percorso\n";
+                map->defaultColorTile(pathToFollow);
+                robotMap.buildGraph();
+                pathToFollow.clear();
+                pathToFollow=robotMap.dijkstra(currentTile, endTile);
+                needToComputePath = false;
+                for(auto p : pathToFollow){
+                    std::cout<<p<<"->"; 
+                }
+                currentStep = 0;
+                map->setColorPath(pathToFollow);
+            }
+            //check next tile if it is an obstacle 
+            if (currentStep >= pathToFollow.size()) {
+                //std::cout<<"Finito il percorso\n";
+                window.draw(shape);
+                return;  // Finito il percorso
+                canRunAlgo = false; 
+            }
 
+            int nextTile = pathToFollow[currentStep];
+            // Calcolo posizione target (centro della tile)
+            int tileSize = map->getTileSize();
+            int col = nextTile % map->getCols();
+            int row = nextTile / map->getCols();
+
+
+            float radius = shape.getRadius();
+            sf::Vector2f targetPosition = {
+                col * tileSize + tileSize / 2.0f - radius,
+                row * tileSize + tileSize / 2.0f - radius
+            };
+
+            sf::Vector2f currentPosition = shape.getPosition();
+            float dx = targetPosition.x - currentPosition.x;
+            float dy = targetPosition.y - currentPosition.y;
+            float distance = std::sqrt(dx * dx + dy * dy);
+
+            if (distance < 1.0f) {
+                // Raggiunta la tile
+                currentTile = nextTile;
+                currentStep++;
+            } else {
+                //run the sensors. (just a simulation, its no needed because it would be enough check the type of nextTile)
+                for(int i=0; i<sensors.size(); i++){
+                    sensors[i].active();
+                    if(sensors[i].getdetectionChecked()){
+                        //nella direzione i there is an obstacle
+                        detected[i]=true;
+                        sensors[i].disable();
+                    }
+                }
+                //take the nextDirection and check the corrispoding sensors
+                Direction d = getNewDirection(nextTile);
+                if(directionToString(d)=="Up" && detected[0]==true){
+                    //Cannot go up
+                    nextMoveIsValide = false;
+                    robotMap.getTiles()[nextTile].setType(TileType::Obstacle);
+                    std::cout<<"Ho rilevato un obst a up\n";
+                    needToComputePath = true; 
+                    //return;
+                }
+                if(directionToString(d)=="Down" && detected[1]==true){
+                    nextMoveIsValide = false;
+                    robotMap.getTiles()[nextTile].setType(TileType::Obstacle);
+                    std::cout<<"Ho rilevato un obst a down\n";
+                    needToComputePath = true; 
+                    //return;
+
+                }
+                if(directionToString(d)=="Left" && detected[2]==true){
+                    nextMoveIsValide = false;
+                    robotMap.getTiles()[nextTile].setType(TileType::Obstacle);
+                    std::cout<<"Ho rilevato un obst a sx\n";
+                    needToComputePath = true; 
+                    //return;
+
+                }
+                if(directionToString(d)=="Right" && detected[3]==true){
+                    nextMoveIsValide = false;
+                    robotMap.getTiles()[nextTile].setType(TileType::Obstacle);
+                    std::cout<<"Ho rilevato un obst a dx\n";
+                    needToComputePath = true; 
+                    //return;
+                }
+                if(needToComputePath)
+                    return;
+                
+                //std::cout<<"TIle current:"<<currentTile<<std::endl; 
+                // Muoviti verso la tile se il movimento è valido
+ 
+                    //std::cout<<"Mi sto muovendo\n";
+                if (d == Direction::Right) moveXpos();
+                else if (d == Direction::Left) moveXneg();
+                else if (d == Direction::Up) moveYneg();
+                else if (d == Direction::Down) moveYpos();
+                
+
+
+            }
+
+        }
+        window.draw(shape);
+    }
+    
+
+
+}
 void Robot::moveXpos(){
     shape.move(speed, 0);
 }
@@ -144,3 +250,12 @@ void Robot::placeRobot(int c, int r){
     setX(x);
     setY(y);
 }
+
+void Robot::setPath(const std::vector<int>& newPath){
+    pathToFollow = newPath;
+    for(int i=0; i<pathToFollow.size(); i++){
+        //change the border color of the correspondednt tile 
+        map->setBorderColorTile(sf::Color::Cyan, pathToFollow[i]);
+    }
+}
+

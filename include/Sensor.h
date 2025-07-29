@@ -19,4 +19,5 @@ class Sensor{
         Sensor(Direction direction, Robot * r, Map * m);
         void active(); 
         void disable();
+        bool getdetectionChecked(){return detectionChecked;}
 };

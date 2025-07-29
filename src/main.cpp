@@ -26,7 +26,9 @@ int main()
     std::cout<<"Hello\n";
     int windowsWidth = 800; 
     int windowsHeigt = 600;
-    sf::RenderWindow window(sf::VideoMode(windowsWidth, windowsHeigt), "SFML Window");
+    sf::RenderWindow window1(sf::VideoMode(windowsWidth, windowsHeigt), "True Map");
+    sf::RenderWindow window2(sf::VideoMode(windowsWidth, windowsHeigt), "Robot Map");
+
     sf::Color colorBackGround = sf::Color::Black;
     sf::Font font;
     if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")){
@@ -47,35 +49,25 @@ int main()
     //Robot => Starting point is startTile 
     int xR, yR, colR, rowR;
     bool robotPlaced = false, canMove=false; 
-    Robot robot(&map, 0,0,25, &window);
+    Robot robot(&map, 0,0,25, &window1);
     //Robot robot(&map, 0,0,25);
     auto& tiles = map.getTiles();
+    Map * rMap = robot.getRobotMap();
 
     //algo
     bool canRunAlgo = false; 
 
-    //map.buildGraph();
-    //const auto& graph = map.getGraph();
-    //map.printGraph();
-
-    //std::vector<int> path = map.dijkstra(0, 34);
-    //for(auto p : path){
-        //std::cout<<p<<"->"; 
-    //}
-    //std::cout<<"\n";
-
-    //robot.setPath(path);
     
     //ciclo di rendering
-    while (window.isOpen())
+    while (window1.isOpen() || window2.isOpen())
     {
         sf::Event event;
         //ciclo di eventi
-        while (window.pollEvent(event))
+        while (window1.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
-            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                window1.close();
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window1);
 
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                 int tileSize = map.getTileSize();
@@ -92,12 +84,14 @@ int main()
                         colR = startTile % map.getCols();
                         //robotPlaced=true;
                         robot.placeRobot(colR, rowR);
+                        robot.setStartTile(startTile);
                     }
                     //goal point
                     else if(clickStage == 1){
                         tiles[index].setFillColor(sf::Color::Green);
                         std::cout << "Goal set on tile: " << index << "\n";
                         goalTile = index;
+                        robot.setEndTile(goalTile);
                     }
                     //obstacle
                     else{
@@ -130,6 +124,7 @@ int main()
 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::E && clickStage>=1){
                 //canRunAlgo = true;
+                /*
                 if(generateMap == false){
                     map.buildGraph();
                     generateMap = true; 
@@ -145,30 +140,26 @@ int main()
                     std::cout << i << ": " << tileTypeToString(tiles[i].getType()) << "\n";
                 }
                 robot.setPath(path);
+                robot.setCanRunAlgo(true);*/
+                //rMap->buildGraph();
+                //std::vector<int> path = rMap->dijkstra(startTile, goalTile);
+                //robot.setPath(path);
                 robot.setCanRunAlgo(true);
+
             }
 
         }
-
-        window.clear(colorBackGround);
-        //render of the map         
-        map.draw(window);
-        //robot 
-        robot.update(window);
-
-        /*
-        if(robotPlaced){
-            std::cout<<"Robot posizionato\n";
-            xR = colR * map.getTileSize()+map.getTileSize()/2;
-            yR = rowR * map.getTileSize()+map.getTileSize()/2;
-            //Robot robot(&map, xR, yR, 25);  // 25 è il raggio del cerchio
-            robot.setX(xR-25);
-            robot.setY(yR-25);
-            //canMove=true;
-
-            
+        while(window2.pollEvent(event)){
+            if(event.type==sf::Event::Closed)
+                window2.close();
         }
-        */
+
+        window1.clear(colorBackGround);
+        window2.clear(colorBackGround);
+        //render of the map         
+        map.draw(window1);
+        //robot 
+        robot.update(window1);
        
         //for debugging
         for (int i = 0; i < tiles.size(); ++i) {
@@ -186,25 +177,32 @@ int main()
             float y = tileBounds.top + (tileBounds.height - textBounds.height) / 2.f;
 
             text.setPosition(x, y);
-            window.draw(text);  
+            window1.draw(text);  
         }
-        //WE CAN RUN ONLY IF WE HAVE PLACE THE ROBOT AND A GOAL
-        //DA AGGIUSTARE
-        /*
-        if(canRunAlgo){
-            std::vector<int> path = map.dijkstra(startTile, goalTile);
-            for(auto p : path){
-                std::cout<<p<<"->"; 
-            }
-            std::cout<<"\n";
-            robot.update(window);
-            canRunAlgo = false; 
-        }
-        */
+        robot.getRobotMap()->draw(window2);
 
-        
-        
-        window.display();
+        const std::vector<Tile>& robotTiles = robot.getRobotMap()->getTiles();
+
+        for (int i = 0; i < robotTiles.size(); ++i) {
+            sf::Text text;
+            text.setFont(font);
+            text.setString(std::to_string(i));
+            text.setCharacterSize(12);
+            text.setFillColor(sf::Color::Red);
+
+            sf::FloatRect tileBounds = robotTiles[i].getGlobalBounds();
+            sf::FloatRect textBounds = text.getLocalBounds();
+
+            float x = tileBounds.left + (tileBounds.width - textBounds.width) / 2.f;
+            float y = tileBounds.top + (tileBounds.height - textBounds.height) / 2.f;
+
+            text.setPosition(x, y);
+            window2.draw(text);
+        }
+
+
+        window2.display();
+        window1.display();
     }
 
     return 0;
